@@ -63,7 +63,7 @@ def create_obj_review(place_id):
         abort(404)
     obj = Review(**kwargs)
     obj.save()
-    return (jsonify(obj.to_dict()), 201)
+    return (make_response(jsonify(obj.to_dict()), 201))
 
 
 @app_views.route('/reviews/<string:review_id>', methods=['PUT'],
@@ -79,4 +79,4 @@ def post_review(review_id):
         if key not in ['id', 'user_id', 'place_id', 'created_at', 'updated']:
             setattr(obj, key, value)
     storage.save()
-    return jsonify(obj.to_dict())
+    return make_response(jsonify(obj.to_dict()))
